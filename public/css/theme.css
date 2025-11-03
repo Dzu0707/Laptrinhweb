@@ -1,0 +1,202 @@
+/* 🌟 HomeDecorStore | Luxury Earth Tone Theme */
+
+/* ============= 🎨 COLORS ============= */
+:root {
+    --earth-brown: #79523A;
+    --earth-dark: #5E3F2C;
+    --gold-text: #D4AF37;
+    --gold-hover: #C19A2B;
+    --cream-light: #F7EFE1;
+    --pure-white: #FFFFFF;
+}
+
+/* ============= 🌍 GLOBAL ============= */
+body {
+    background-color: var(--earth-brown);
+    font-family: "Playfair Display", serif;
+    color: var(--gold-text);
+}
+
+/* ============= 🟫 NAVBAR ============= */
+.navbar {
+    background-color: var(--earth-dark) !important;
+    border-bottom: 1px solid rgba(212,175,55,0.4);
+}
+
+.nav-link {
+    color: var(--gold-text) !important;
+    font-weight: 600;
+}
+.nav-link:hover,
+.nav-link.active {
+    color: var(--pure-white) !important;
+}
+
+/* Logo */
+.brand-logo {
+    height: 50px;
+    margin-right: 18px;
+    object-fit: contain;
+}
+
+/* Badge Giỏ hàng = ĐỎ */
+.cart-badge {
+    background-color: #DC3545 !important;
+    color: #fff !important;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 50%;
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    padding: 2px 7px;
+    border: 2px solid var(--earth-dark);
+}
+
+/* ============= 📦 Main Layout ============= */
+main.container {
+    background-color: var(--cream-light);
+    border-radius: 20px;
+    padding: 45px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+}
+
+/* Section Title */
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--gold-text) !important;
+}
+
+/* ============= ✅ BUTTONS ============= */
+
+/* Nút vàng – chữ & icon trắng */
+.btn-gold {
+    background-color: var(--gold-text) !important;
+    border: 2px solid var(--gold-text) !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+    border-radius: 50px;
+}
+.btn-gold i {
+    color: #fff !important;
+}
+.btn-gold:hover {
+    background-color: var(--gold-hover) !important;
+}
+
+/* Nút trắng – viền vàng – chữ vàng */
+.btn-outline-gold {
+    background: var(--pure-white) !important;
+    border: 2px solid var(--gold-text) !important;
+    color: var(--gold-text) !important;
+    font-weight: 700 !important;
+    border-radius: 50px;
+}
+.btn-outline-gold:hover {
+    background: var(--gold-text) !important;
+    color: #000 !important;
+}
+.btn-outline-gold:hover i {
+    color: #000 !important;
+}
+
+/* ============= 🛍️ Product Cards ============= */
+.product-card {
+    background-color: #fff;
+    border-radius: 18px;
+    transition: 0.3s;
+}
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 26px rgba(0,0,0,0.25);
+}
+
+/* Giá sản phẩm */
+.product-card p.fs-5 {
+    color: var(--gold-text) !important;
+}
+
+/* ============= ⚡ Icons  ============= */
+i {
+    transition: 0.3s ease;
+}
+i:hover {
+    color: var(--gold-hover) !important;
+}
+
+/* ============= 📌 Footer ============= */
+footer {
+    background: var(--earth-dark);
+    color: var(--gold-text);
+}
+/* ============= ✅ Buttons Icon – Giỏ hàng ============= */
+.btn-icon {
+    background: var(--pure-white);
+    border: 2px solid var(--gold-text);
+    color: var(--gold-text) !important;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.25s ease-in-out;
+    padding: 0;
+}
+
+/* Icon theo màu chữ */
+.btn-icon i {
+    color: inherit !important;
+    font-size: 18px;
+}
+
+/* Hover chuyển sang vàng chủ đạo */
+.btn-icon:hover {
+    background: var(--gold-text) !important;
+    color: #000 !important;
+    border-color: var(--gold-text);
+}
+.btn-icon:hover i {
+    color: #000 !important;
+}
+
+/* Badge giỏ hàng đỏ kiểu thông báo */
+.cart-badge {
+    background-color: #DC3545 !important; /* Đỏ bootstrap */
+    color: #fff !important;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 2px 6px;
+    border-radius: 50%;
+    position: absolute;
+    top: -6px;  /* Nằm lên phía trên icon */
+    right: -6px; /* Nhích sang phải */
+    border: 2px solid var(--earth-dark); /* Viền nâu để nổi bật */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 18px;
+    min-height: 18px;
+}
+/* Trạng thái Chờ xử lý */
+.status-badge.pending {
+    background-color: #fff3cd !important; /* Vàng nhạt */
+    color: #856404 !important; /* Nâu đậm */
+    border: 1px solid #ffeeba !important;
+}
+
+/* Trạng thái Hoàn thành */
+.status-badge.completed {
+    background-color: #d4edda !important; /* Xanh nhạt */
+    color: #155724 !important;
+    border: 1px solid #c3e6cb !important;
+}
+
+/* Trạng thái Đã hủy */
+.status-badge.cancelled {
+    background-color: #f8d7da !important; /* Đỏ nhạt */
+    color: #721c24 !important;
+    border: 1px solid #f5c6cb !important;
+}

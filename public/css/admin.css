@@ -1,0 +1,145 @@
+/* 🌟 HomeDecor Admin — Style B: Chuyên nghiệp & Sắc nét */
+
+:root {
+    --admin-dark: #2D2A26;
+    --admin-mid: #3A362F;
+    --gold-text: #D4AF37;
+    --gold-hover: #C19A2B;
+    --cream: #F7EFE1;
+    --white: #FFFFFF;
+}
+
+/* Tổng thể */
+body {
+    background: var(--cream);
+    font-family: "Playfair Display", serif;
+    color: var(--admin-dark);
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: var(--admin-dark);
+    color: var(--gold-text);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.sidebar .brand {
+    font-size: 22px;
+    font-weight: 700;
+    padding: 0 20px;
+    margin-bottom: 25px;
+    color: var(--gold-text);
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px 22px;
+    font-size: 16px;
+    color: var(--gold-text);
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: var(--gold-text);
+    color: var(--admin-dark) !important;
+    font-weight: 900;
+}
+
+.sidebar i {
+    margin-right: 10px;
+}
+
+/* Logout Button */
+.sidebar form button {
+    background: transparent;
+    border: none;
+    width: 100%;
+    padding: 12px 22px;
+    font-size: 16px;
+    color: var(--gold-text);
+    text-align: left;
+    transition: .25s;
+}
+
+.sidebar form button:hover {
+    background: var(--gold-text);
+    color: var(--admin-dark) !important;
+    font-weight: 900;
+}
+
+/* MAIN CONTENT */
+.content {
+    margin-left: 260px;
+    padding: 32px;
+}
+
+/* Header Title */
+.section-title {
+    font-weight: 900;
+    font-size: 26px;
+    color: var(--admin-dark);
+}
+
+/* Dashboard cards */
+.stat-card {
+    background: var(--white);
+    border: none;
+    padding: 22px;
+    border-radius: 6px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.12);
+    transition: .25s;
+}
+
+.stat-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.20);
+    transform: translateY(-4px);
+}
+
+.stat-card i {
+    color: var(--gold-text);
+    font-size: 30px;
+}
+
+.stat-card h4 {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--admin-dark);
+}
+
+.stat-card p {
+    color: var(--admin-mid);
+    font-size: 14px;
+}
+
+/* Footer */
+footer {
+    background: var(--admin-dark);
+    color: var(--gold-text);
+}
+/* Make layout full height + push footer xuống đáy */
+.admin-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Content giãn chiếm khoảng trống */
+.content {
+    flex: 1;
+}
+
+/* Footer */
+.admin-footer {
+    background: var(--admin-dark);
+    color: var(--gold-text);
+    width: 100%;
+}
