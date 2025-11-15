@@ -15,7 +15,7 @@
             <table class="table align-middle text-center mb-0">
                 <thead class="bg-dark text-gold">
                     <tr>
-                        <th>ID</th>
+                        <th>STT</th>
                         <th>Khách hàng</th>
                         <th>Email</th>
                         <th class="text-end">Tổng tiền</th>
@@ -26,9 +26,20 @@
                 </thead>
 
                 <tbody>
+                    @php
+                        $statusLabels = [
+                            'pending' => 'Chờ xử lý',
+                            'completed' => 'Hoàn tất',
+                            'cancelled' => 'Đã hủy'
+                        ];
+                    @endphp
+
                     @forelse($orders as $order)
                         <tr>
-                            <td class="fw-bold text-gold">{{ $order->id }}</td>
+                            <td class="fw-bold text-gold">
+                                {{ $orders->firstItem() + $loop->index }}
+                            </td>
+
                             <td class="text-dark">{{ $order->user->name ?? 'Khách vãng lai' }}</td>
                             <td class="text-dark">{{ $order->user->email ?? '—' }}</td>
 
@@ -36,7 +47,6 @@
                                 {{ number_format($order->items->sum(fn($i)=>$i->quantity * $i->price)) }}₫
                             </td>
 
-                            {{-- Badge trạng thái --}}
                             @php
                                 $statusColors = [
                                     'pending' => 'warning text-dark',
@@ -46,7 +56,7 @@
                             @endphp
                             <td>
                                 <span class="badge rounded-pill px-3 py-2 bg-{{ $statusColors[$order->status] ?? 'secondary' }}">
-                                    {{ ucfirst($order->status) }}
+                                    {{ $statusLabels[$order->status] ?? 'Không xác định' }}
                                 </span>
                             </td>
 
@@ -55,7 +65,6 @@
                             </td>
 
                             <td class="text-nowrap">
-
                                 <div class="d-flex align-items-center justify-content-center gap-2">
 
                                     {{-- Cập nhật trạng thái --}}
@@ -67,9 +76,8 @@
                                             style="min-width: 110px;">
                                             <option value="pending"   {{ $order->status === 'pending' ? 'selected' : '' }}>Chờ xử lý</option>
                                             <option value="completed" {{ $order->status === 'completed' ? 'selected' : '' }}>Hoàn tất</option>
-                                            <option value="cancelled" {{ $order->status === 'cancelled' ? 'selected' : '' }}>Hủy</option>
+                                            <option value="cancelled" {{ $order->status === 'cancelled' ? 'selected' : '' }}>Đã hủy</option>
                                         </select>
-
                                         <button type="submit"
                                                 class="btn btn-gold btn-sm fw-bold rounded-pill"
                                                 data-bs-toggle="tooltip" title="Lưu">
@@ -84,7 +92,6 @@
                                         <i class="bi bi-eye"></i>
                                     </a>
                                 </div>
-
                             </td>
                         </tr>
                     @empty

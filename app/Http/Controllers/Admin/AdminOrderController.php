@@ -24,9 +24,24 @@ class AdminOrderController extends Controller
     public function updateStatus($id)
     {
         $order = Order::findOrFail($id);
-        $order->status = request('status');
+
+        $status = request('status');
+
+        $allowed = ['pending', 'completed', 'cancelled'];
+
+        if (!in_array($status, $allowed)) {
+            return back()->with('error', 'Trạng thái không hợp lệ!');
+        }
+
+        $order->status = $status;
         $order->save();
 
-        return back()->with('success', 'Cập nhật trạng thái thành công!');
+        $messages = [
+            'pending' => 'Đơn hàng chuyển sang trạng thái: Chờ xử lý!',
+            'completed' => 'Đơn hàng đã được hoàn tất!',
+            'cancelled' => 'Đơn hàng đã bị hủy!',
+        ];
+
+        return back()->with('success', $messages[$status]);
     }
 }

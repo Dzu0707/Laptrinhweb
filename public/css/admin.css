@@ -1,4 +1,4 @@
-/* 🌟 HomeDecor Admin — Style B: Chuyên nghiệp & Sắc nét */
+/* 🌟 HomeDecor Admin — Sang trọng & Ổn định */
 
 :root {
     --admin-dark: #2D2A26;
@@ -7,16 +7,19 @@
     --gold-hover: #C19A2B;
     --cream: #F7EFE1;
     --white: #FFFFFF;
+    --danger: #dc3545;
 }
 
-/* Tổng thể */
-body {
+/* ===== Tổng thể ===== */
+body.admin-layout {
     background: var(--cream);
-    font-family: "Playfair Display", serif;
+    font-family: "Inter", sans-serif;
     color: var(--admin-dark);
+    display: flex;
+    margin: 0;
 }
 
-/* Sidebar */
+/* ===== SIDEBAR ===== */
 .sidebar {
     width: 250px;
     height: 100vh;
@@ -24,89 +27,103 @@ body {
     color: var(--gold-text);
     display: flex;
     flex-direction: column;
-    padding: 20px 0;
+    padding: 1.5rem 0;
     position: fixed;
-    left: 0;
     top: 0;
+    left: 0;
+    z-index: 100;
 }
 
 .sidebar .brand {
-    font-size: 22px;
-    font-weight: 700;
-    padding: 0 20px;
-    margin-bottom: 25px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    padding: 0 1.5rem;
+    margin-bottom: 1.5rem;
     color: var(--gold-text);
+    letter-spacing: 0.5px;
 }
 
 .sidebar a {
-    display: block;
-    padding: 12px 22px;
-    font-size: 16px;
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1.5rem;
+    font-size: 15px;
     color: var(--gold-text);
     text-decoration: none;
     transition: 0.2s;
+    border-left: 3px solid transparent;
+    font-weight: 500;
+}
+
+.sidebar a i {
+    margin-right: 10px;
+    font-size: 18px;
 }
 
 .sidebar a:hover,
 .sidebar a.active {
     background: var(--gold-text);
     color: var(--admin-dark) !important;
-    font-weight: 900;
+    font-weight: 700;
+    border-left: 3px solid var(--gold-hover);
 }
 
-.sidebar i {
-    margin-right: 10px;
+/* ===== Logout Button ===== */
+.sidebar form {
+    margin-top: auto;
 }
 
-/* Logout Button */
 .sidebar form button {
     background: transparent;
     border: none;
     width: 100%;
-    padding: 12px 22px;
-    font-size: 16px;
+    padding: 0.8rem 1.5rem;
+    font-size: 15px;
     color: var(--gold-text);
     text-align: left;
-    transition: .25s;
+    transition: 0.25s;
+    font-weight: 600;
 }
 
 .sidebar form button:hover {
     background: var(--gold-text);
     color: var(--admin-dark) !important;
-    font-weight: 900;
+    font-weight: 800;
 }
 
-/* MAIN CONTENT */
+/* ===== MAIN CONTENT ===== */
 .content {
-    margin-left: 260px;
-    padding: 32px;
+    margin-left: 250px;
+    padding: 2rem 2.5rem;
+    flex: 1;
 }
 
-/* Header Title */
+/* Section Title */
 .section-title {
-    font-weight: 900;
+    font-weight: 800;
     font-size: 26px;
     color: var(--admin-dark);
+    margin-bottom: 1.5rem;
 }
 
-/* Dashboard cards */
+/* ===== DASHBOARD CARDS ===== */
 .stat-card {
     background: var(--white);
     border: none;
-    padding: 22px;
-    border-radius: 6px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.12);
-    transition: .25s;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+    padding: 1.5rem;
+    transition: 0.25s;
 }
 
 .stat-card:hover {
-    box-shadow: 0 4px 20px rgba(0,0,0,0.20);
     transform: translateY(-4px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
 }
 
 .stat-card i {
     color: var(--gold-text);
-    font-size: 30px;
+    font-size: 32px;
 }
 
 .stat-card h4 {
@@ -118,28 +135,74 @@ body {
 .stat-card p {
     color: var(--admin-mid);
     font-size: 14px;
+    margin-bottom: 0;
 }
 
-/* Footer */
-footer {
-    background: var(--admin-dark);
-    color: var(--gold-text);
-}
-/* Make layout full height + push footer xuống đáy */
-.admin-layout {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+/* ===== TABLE STYLE ===== */
+.table {
+    background: var(--white);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
-/* Content giãn chiếm khoảng trống */
-.content {
-    flex: 1;
+.table th {
+    background: var(--gold-text);
+    color: var(--admin-dark);
+    font-weight: 700;
 }
 
-/* Footer */
+.table-hover tbody tr:hover {
+    background-color: rgba(212, 175, 55, 0.08);
+}
+
+/* ===== BUTTONS ===== */
+.btn-gold {
+    background: var(--gold-text);
+    color: var(--admin-dark);
+    font-weight: 700;
+    border: none;
+    transition: 0.25s;
+}
+
+.btn-gold:hover {
+    background: var(--gold-hover);
+    color: var(--white);
+}
+
+/* ===== FOOTER ===== */
 .admin-footer {
     background: var(--admin-dark);
     color: var(--gold-text);
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 10px;
     width: 100%;
+    position: relative;
+}
+
+/* ===== Responsive tối giản (giữ layout y như laptop) ===== */
+@media (max-width: 992px) {
+    .sidebar {
+        width: 220px;
+    }
+    .content {
+        margin-left: 220px;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+        height: 100vh;
+        position: fixed;
+    }
+    .sidebar a {
+        font-size: 14px;
+        padding: 0.6rem 1rem;
+    }
+    .content {
+        margin-left: 200px;
+        padding: 1.25rem;
+    }
 }

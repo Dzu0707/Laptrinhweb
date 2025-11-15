@@ -18,14 +18,14 @@ class Order extends Model
     ];
 
     // Một đơn hàng có nhiều sản phẩm
-    public function items()
-    {
-        return $this->hasMany(OrderItem::class);
-    }
-
-    // Đơn hàng thuộc về một người dùng
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(\App\Models\User::class);
     }
+
+    public function items()
+    {
+        return $this->hasMany(\App\Models\OrderItem::class);
+    }
+
 }

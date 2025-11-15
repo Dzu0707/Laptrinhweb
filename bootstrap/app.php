@@ -12,11 +12,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Alias middleware tùy chỉnh
-    $middleware->alias([
-            'admin' => \App\Http\Middleware\AdminMiddleware::class,
-    ]);
-        // Nếu cần, bạn có thể thêm $middleware->web([...]) hoặc $middleware->api([...]) ở đây.
+        // 🔹 Alias middleware tùy chỉnh
+        $middleware->alias([
+            // middleware admin của bạn
+            'is_admin' => \App\Http\Middleware\IsAdmin::class,
+        ]);
+
+        // Nếu cần, bạn có thể thêm web/api middleware group ở đây:
+        // $middleware->web([...]);
+        // $middleware->api([...]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         // cấu hình xử lý exception nếu cần

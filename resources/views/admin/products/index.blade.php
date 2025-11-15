@@ -25,7 +25,7 @@
 
         <div class="col-md-4 text-end">
             <a href="{{ route('admin.products.create') }}" class="btn btn-gold fw-bold rounded-pill px-4">
-                <i class="bi bi-plus-circle me-1"></i> Thêm mới
+                <i class="bi bi-plus-circle me-1"></i> Thêm mới sản phẩm
             </a>
         </div>
 
@@ -51,7 +51,9 @@
         <tbody>
             @forelse($products as $p)
             <tr>
-                <td class="fw-bold text-gold">{{ $p->id }}</td>
+                <td class="fw-bold text-gold">
+                    {{ $products->firstItem() + $loop->index }}
+                </td>
 
                 <td>
                     <img src="{{ asset('storage/' . $p->thumbnail) }}" 
@@ -75,7 +77,7 @@
                 <td>
                     <span class="badge rounded-pill px-3 py-2
                         {{ $p->is_active ? 'bg-success' : 'bg-secondary' }}">
-                        {{ $p->is_active ? 'Hiển' : 'Ẩn' }}
+                        {{ $p->is_active ? 'Hiển Thị' : 'Ẩn' }}
                     </span>
                 </td>
 

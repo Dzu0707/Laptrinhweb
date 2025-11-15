@@ -6,8 +6,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Order;
 
+/**
+ * App\Models\User
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $role
+ * @property string|null $password
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -22,6 +32,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role', // ✅ thêm dòng này để role có thể cập nhật được
     ];
 
     /**
@@ -46,9 +57,16 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // ✅ Quan hệ với bảng orders
     public function orders()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(\App\Models\Order::class);
     }
 
+    // ✅ Quan hệ với bảng reviews
+    public function reviews()
+    {
+        return $this->hasMany(\App\Models\Review::class);
+    }
 }

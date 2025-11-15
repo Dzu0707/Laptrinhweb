@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('promotions', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
-            $table->enum('type', ['percent','fixed']);
-            $table->unsignedInteger('value');
+            $table->enum('type', ['percent', 'fixed']);
+            $table->decimal('value', 10, 2);
             $table->timestamp('start_at')->nullable();
             $table->timestamp('end_at')->nullable();
             $table->boolean('active')->default(true);

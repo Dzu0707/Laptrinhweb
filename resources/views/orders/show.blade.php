@@ -35,7 +35,9 @@
                 @foreach ($order->items as $item)
                 <tr>
                     <td width="80">
-                        <img src="{{ asset($item->product->thumbnail) }}" class="img-fluid rounded">
+                        <img src="{{ asset('storage/' . $item->product->thumbnail) }}" 
+                        class="img-fluid rounded" 
+                        alt="{{ $item->product->name }}">
                     </td>
                     <td>{{ $item->product->name }}</td>
                     <td class="text-center">{{ $item->quantity }}</td>

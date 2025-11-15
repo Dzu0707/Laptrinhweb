@@ -14,5 +14,23 @@ class Product extends Model
         'short_description','description','is_active',
     ];
 
-    public function category() { return $this->belongsTo(Category::class); }
+    public function category()
+    {
+        return $this->belongsTo(\App\Models\Category::class);
+    }
+
+    public function orderItems()
+    {
+        return $this->hasMany(\App\Models\OrderItem::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(\App\Models\Review::class);
+    }
+
+    public function getFormattedPriceAttribute()
+    {
+        return number_format($this->price, 0, ',', '.') . '₫';
+    }
 }

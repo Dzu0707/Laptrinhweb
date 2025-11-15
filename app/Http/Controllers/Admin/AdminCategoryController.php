@@ -51,10 +51,36 @@ class AdminCategoryController extends Controller
             ->with('success', 'Cập nhật danh mục thành công!');
     }
 
-    public function destroy(Category $category)
+    public function destroy($id)
     {
+        $category = \App\Models\Category::findOrFail($id);
+
+        // ✅ Kiểm tra xem danh mục có sản phẩm không
+        if ($category->products()->count() > 0) {
+            return back()->with('error', 'Vui lòng xóa tất cả sản phẩm trong danh mục này trước khi xóa danh mục.');
+        }
+
+        // ✅ Nếu không có sản phẩm thì xóa danh mục
         $category->delete();
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'Đã xóa danh mục!');
+
+        return back()->with('success', 'Đã xóa danh mục thành công!');
+    }
+    public function destroyWithProducts($id)
+    {
+        $category = \App\Models\Category::findOrFail($id);
+
+        if ($category->products()->count() === 0) {
+            $category->delete();
+            return back()->with('success', 'Đã xóa danh mục thành công.');
+        }
+
+        // ⚠️ Xóa toàn bộ sản phẩm liên quan
+        foreach ($category->products as $product) {
+            $product->delete();
+        }
+
+        $category->delete();
+
+        return back()->with('success', 'Đã xóa danh mục và toàn bộ sản phẩm trong đó!');
     }
 }

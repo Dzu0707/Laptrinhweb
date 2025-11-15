@@ -3,34 +3,32 @@
 @section('title', 'Đăng nhập | HomeDecorStore')
 
 @section('content')
+{{-- CSS Theme chính + CSS riêng của trang login --}}
 <link rel="stylesheet" href="{{ asset('css/theme.css') }}">
+<link rel="stylesheet" href="{{ asset('css/login.css') }}">
 
-<div class="container">
-    <div class="row justify-content-center" style="margin-top: 5rem; margin-bottom: 5rem;">
-        <div class="col-md-5 col-lg-4">
-            
-            <div class="card shadow-lg rounded-3 overflow-hidden">
+<div class="container py-5">
+    <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+        <div class="col-md-6 col-lg-4">
 
-                <!-- Header -->
-                <div class="card-header text-center" style="background-color: var(--earth-dark);">
-                    <h4 class="main-title mb-0">
-                        <i class="bi bi-person-circle me-2"></i> Đăng Nhập
-                    </h4>
+            <div class="card login-card">
+                {{-- Header --}}
+                <div class="login-header">
+                    <h4><i class="bi bi-person-circle me-2"></i> Đăng Nhập</h4>
                 </div>
 
-                <!-- Body -->
+                {{-- Body --}}
                 <div class="card-body p-4">
-
                     @if(session('error'))
-                        <div class="alert alert-danger d-flex align-items-center p-2" role="alert">
+                        <div class="alert alert-danger d-flex align-items-center p-2 mb-3">
                             <i class="bi bi-x-octagon-fill me-2"></i>
-                            <div>{{ session('error') }}</div>
+                            <span>{{ session('error') }}</span>
                         </div>
                     @endif
 
                     @error('email')
-                        <div class="alert alert-danger p-2">
-                            <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ $message }}
+                        <div class="alert alert-danger p-2 mb-3 text-center">
+                            <i class="bi bi-exclamation-triangle-fill me-1"></i> {{ $message }}
                         </div>
                     @enderror
 
@@ -41,36 +39,39 @@
                             <label for="email" class="form-label">
                                 <i class="bi bi-envelope-fill me-1"></i> Email
                             </label>
-                            <input type="email" name="email" id="email"
-                                   class="form-control @error('email') is-invalid @enderror"
-                                   placeholder="your.email@example.com"
-                                   value="{{ old('email') }}" required autofocus>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                <input type="email" name="email" id="email" class="form-control"
+                                       placeholder="you@example.com" value="{{ old('email') }}" required autofocus>
+                            </div>
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="password" class="form-label">
                                 <i class="bi bi-lock-fill me-1"></i> Mật khẩu
                             </label>
-                            <input type="password" name="password" id="password"
-                                   class="form-control" placeholder="********" required>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                <input type="password" name="password" id="password" class="form-control"
+                                       placeholder="••••••••" required>
+                            </div>
                         </div>
 
-                    <button type="submit" class="btn btn-outline-gold w-100 py-2 shadow d-inline-flex align-items-center justify-content-center">
-                        <i class="bi bi-box-arrow-in-right me-2"></i> Đăng nhập
-                    </button>
-
+                        <button type="submit" class="btn btn-login w-100 shadow-sm">
+                            <i class="bi bi-box-arrow-in-right me-2"></i> Đăng nhập
+                        </button>
                     </form>
                 </div>
 
-                <!-- Footer -->
-                <div class="card-footer text-center" style="background-color: var(--earth-dark);">
-                    <small class="text-light">
+                {{-- Footer --}}
+                <div class="login-footer text-center">
+                    <small>
                         Chưa có tài khoản?
-                        <a href="{{ route('register') }}" class="link-gold fw-bold text-decoration-none">Đăng ký ngay</a>
+                        <a href="{{ route('register') }}">Đăng ký ngay</a>
                     </small>
                 </div>
-
             </div>
+
         </div>
     </div>
 </div>
