@@ -40,7 +40,7 @@ class CartController extends Controller
         return redirect()->back()->with('success', 'Đã thêm vào giỏ hàng!');
     }
 
-
+    
     public function remove($id)
     {
         $cart = session('cart', []);
@@ -48,6 +48,7 @@ class CartController extends Controller
         session(['cart' => $cart]);
         return back()->with('success', 'Đã xóa khỏi giỏ hàng!');
     }
+
     public function update(Request $request, $id)
     {
         $cart = session()->get('cart', []);

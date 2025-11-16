@@ -12,23 +12,34 @@ class AdminDashboardController extends Controller
 {
     public function index()
     {
-        $totalUsers    = User::count();
-        $totalAdmins   = User::where('role', 'admin')->count();
-        $totalProducts = Product::count();
-        $totalOrders   = Order::count();
+        // ======== THỐNG KÊ NHANH ========
+        $totalUsers      = User::count();
+        $totalAdmins     = User::where('role', 'admin')->count();
+        $totalProducts   = Product::count();
+        $totalOrders     = Order::count();
         $completedOrders = Order::where('status', 'completed')->count();
-        $totalRevenue  = Order::where('status', 'completed')->sum('total');
-        $pendingReviews = Review::where('approved', false)->count();
+        $totalRevenue    = Order::where('status', 'completed')->sum('total');
+        $pendingReviews  = Review::where('approved', false)->count();
 
+        // ======== ĐƠN HÀNG MỚI ========
         $latestOrders = Order::with('user')
             ->orderByDesc('created_at')
             ->limit(5)
             ->get();
 
+        // ======== TOP SẢN PHẨM ========
         $topProducts = Product::withCount('orderItems')
             ->orderByDesc('order_items_count')
             ->limit(5)
             ->get();
+
+        // ======== DỮ LIỆU BIỂU ĐỒ TRÒN ========
+        $orderChart = [
+            'completed' => Order::where('status', 'completed')->count(),
+            'pending'   => Order::where('status', 'pending')->count(),
+            'canceled'  => Order::where('status', 'canceled')->count(),
+            'other'     => Order::whereNotIn('status', ['completed', 'pending', 'canceled'])->count(),
+        ];
 
         return view('admin.dashboard', compact(
             'totalUsers',
@@ -39,7 +50,8 @@ class AdminDashboardController extends Controller
             'totalRevenue',
             'pendingReviews',
             'latestOrders',
-            'topProducts'
+            'topProducts',
+            'orderChart' 
         ));
     }
 }

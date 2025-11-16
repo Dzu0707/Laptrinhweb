@@ -1,208 +1,327 @@
-/* 🌟 HomeDecor Admin — Sang trọng & Ổn định */
-
-:root {
-    --admin-dark: #2D2A26;
-    --admin-mid: #3A362F;
-    --gold-text: #D4AF37;
-    --gold-hover: #C19A2B;
-    --cream: #F7EFE1;
-    --white: #FFFFFF;
-    --danger: #dc3545;
-}
-
-/* ===== Tổng thể ===== */
-body.admin-layout {
-    background: var(--cream);
-    font-family: "Inter", sans-serif;
-    color: var(--admin-dark);
-    display: flex;
-    margin: 0;
-}
-
-/* ===== SIDEBAR ===== */
+/* ======== SIDEBAR GRADIENT ELEGANT ======== */
 .sidebar {
-    width: 250px;
-    height: 100vh;
-    background: var(--admin-dark);
-    color: var(--gold-text);
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem 0;
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 100;
+    width: 260px;
+    height: 100vh;
+
+    /* ⭐ Gradient nhẹ từ xanh đen → xanh dương navy */
+    background: linear-gradient(
+        180deg,
+        #001326 0%,      /* xanh đen */
+        #001b33 45%,     /* chuyển màu nhẹ */
+        #002544 100%     /* xanh navy dịu */
+    );
+
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+
+    border-right: 2px solid rgba(255, 215, 0, 0.4);
+
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #e6c75a transparent;
+
+    /* shadow nhẹ – sang */
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.4);
 }
 
+/* Scrollbar */
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: #e6c75a;
+    border-radius: 10px;
+}
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* ===== BRAND ===== */
 .sidebar .brand {
-    font-size: 1.4rem;
-    font-weight: 800;
-    padding: 0 1.5rem;
-    margin-bottom: 1.5rem;
-    color: var(--gold-text);
-    letter-spacing: 0.5px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px 0;
+    color: #ffe680;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.25);
+
+    /* glow nhẹ */
+    text-shadow: 0 0 4px rgba(255, 215, 0, 0.4);
 }
 
+/* ===== MENU ITEM ===== */
 .sidebar a {
+    color: #ffe680;
+    padding: 14px 22px;
     display: flex;
     align-items: center;
-    padding: 0.8rem 1.5rem;
-    font-size: 15px;
-    color: var(--gold-text);
+    gap: 10px;
+    font-size: 16px;
     text-decoration: none;
-    transition: 0.2s;
-    border-left: 3px solid transparent;
-    font-weight: 500;
+
+    border-bottom: 1px solid rgba(255, 215, 0, 0.04);
+
+    transition: 0.25s ease;
 }
 
-.sidebar a i {
-    margin-right: 10px;
-    font-size: 18px;
+/* Hover: vàng dịu + highlight nhẹ */
+.sidebar a:hover {
+    background: rgba(255, 215, 0, 0.12);
+    padding-left: 30px;
+
+    /* highlight mờ – không neon */
+    box-shadow: inset 0 0 8px rgba(255, 215, 0, 0.25);
 }
 
-.sidebar a:hover,
+/* ===== ACTIVE ===== */
 .sidebar a.active {
-    background: var(--gold-text);
-    color: var(--admin-dark) !important;
-    font-weight: 700;
-    border-left: 3px solid var(--gold-hover);
-}
-
-/* ===== Logout Button ===== */
-.sidebar form {
-    margin-top: auto;
-}
-
-.sidebar form button {
-    background: transparent;
-    border: none;
-    width: 100%;
-    padding: 0.8rem 1.5rem;
-    font-size: 15px;
-    color: var(--gold-text);
-    text-align: left;
-    transition: 0.25s;
+    background: #ffd74d; /* vàng nhạt sang */
+    color: #001326;
     font-weight: 600;
+    border-bottom: none;
+
+    /* glow nhẹ – premium */
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2),
+                0 0 10px rgba(255, 215, 0, 0.4);
 }
 
-.sidebar form button:hover {
-    background: var(--gold-text);
-    color: var(--admin-dark) !important;
-    font-weight: 800;
+.sidebar a.active i {
+    color: #001326 !important;
 }
 
-/* ===== MAIN CONTENT ===== */
+/* ===== LOGOUT ===== */
+.btn-logout {
+    border: none;
+    background: rgba(255, 215, 0, 0.12);
+    color: #ffe680;
+    padding: 14px 22px;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.btn-logout:hover {
+    background: #ffd74d;
+    color: #001326;
+}
+
+/* CONTENT + FOOTER giữ nguyên */
 .content {
-    margin-left: 250px;
-    padding: 2rem 2.5rem;
+    margin-left: 260px;
+    padding: 30px;
+    background: #f4f6f7;
+}
+
+
+.admin-footer {
+    margin-left: 260px;
+    padding: 15px;
+    background: #001326;
+    color: #ffe680;
+    text-align: center;
+    border-top: 1px solid rgba(255, 215, 0, 0.3);
+}
+/* Dashboard */
+
+/* Giúp footer luôn nằm cuối trang */
+body.admin-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Content chiếm toàn bộ chiều cao còn lại */
+.content {
     flex: 1;
 }
 
-/* Section Title */
-.section-title {
-    font-weight: 800;
-    font-size: 26px;
-    color: var(--admin-dark);
-    margin-bottom: 1.5rem;
-}
-
-/* ===== DASHBOARD CARDS ===== */
-.stat-card {
-    background: var(--white);
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
-    padding: 1.5rem;
-    transition: 0.25s;
-}
-
-.stat-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
-}
-
-.stat-card i {
-    color: var(--gold-text);
-    font-size: 32px;
-}
-
-.stat-card h4 {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--admin-dark);
-}
-
-.stat-card p {
-    color: var(--admin-mid);
-    font-size: 14px;
-    margin-bottom: 0;
-}
-
-/* ===== TABLE STYLE ===== */
-.table {
-    background: var(--white);
-    border-radius: 8px;
+/* ========== TABLE WRAPPER ========== */
+.table-responsive {
+    border-radius: 18px;
     overflow: hidden;
+    border: 1px solid rgba(255, 215, 0, 0.25);
 }
 
-.table th {
-    background: var(--gold-text);
-    color: var(--admin-dark);
+/* ========== TABLE HEAD ========== */
+.table thead {
+    background: linear-gradient(90deg, #001326, #002543);
+    color: #f7d778;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 14px;
+    border-bottom: 2px solid rgba(255, 215, 0, 0.4);
+}
+
+.table thead th {
+    padding: 14px 10px !important;
+    border-right: 1px solid rgba(255, 215, 0, 0.08);
+}
+
+/* ========== TABLE BODY ========== */
+.table tbody tr {
+    transition: 0.2s ease;
+    background: white;
+}
+
+.table tbody tr:hover {
+    background: rgba(255, 215, 0, 0.08);
+}
+
+.table tbody td {
+    padding: 14px 10px !important;
+}
+
+/* ID GOLD */
+.table tbody td.fw-bold.text-gold {
     font-weight: 700;
+    color: #d4b44c !important;
 }
 
-.table-hover tbody tr:hover {
-    background-color: rgba(212, 175, 55, 0.08);
+/* PRICE GOLD */
+.text-gold {
+    color: #caa647 !important;
+    font-weight: 600;
 }
 
-/* ===== BUTTONS ===== */
+
+/* ========== STATUS BADGE ========== */
+.badge.bg-success {
+    background: #2ecc71 !important;
+    font-size: 12px;
+}
+
+.badge.bg-secondary {
+    background: #6c757d !important;
+    font-size: 12px;
+}
+
+/* ========== BUTTON STYLE ========== */
+.btn-outline-gold {
+    border: 1px solid #d4b44c !important;
+    color: #caa647 !important;
+    transition: 0.25s ease;
+}
+
+.btn-outline-gold:hover {
+    background: #d4b44c !important;
+    color: #001326 !important;
+}
+
+/* DELETE */
+.btn-danger {
+    transition: 0.2s;
+}
+.btn-danger:hover {
+    opacity: 0.8;
+}
+
+/* HIDE */
+.btn-warning {
+    background: #ffcc3b !important;
+    border: none !important;
+    color: #001326 !important;
+    transition: 0.25s ease;
+}
+.btn-warning:hover {
+    filter: brightness(110%);
+}
+
+/* PAGINATION GOLD */
+.pagination .page-item.active .page-link {
+    background-color: #d4b44c !important;
+    border-color: #d4b44c !important;
+    color: #001326 !important;
+    font-weight: 600;
+}
+
+.pagination .page-link {
+    color: #001326;
+    border-radius: 10px;
+}
+
+/* Search box */
+.form-control {
+    border: 1px solid rgba(255, 215, 0, 0.4);
+}
+.form-control:focus {
+    border-color: #ffd74d;
+    box-shadow: 0 0 6px rgba(255, 215, 0, 0.4);
+}
+
+/* BUTTON GOLD GENERAL */
 .btn-gold {
-    background: var(--gold-text);
-    color: var(--admin-dark);
-    font-weight: 700;
+    background: linear-gradient(90deg, #d4b44c, #e9ca63);
     border: none;
-    transition: 0.25s;
+    color: #001326;
+    transition: 0.25s ease;
 }
 
 .btn-gold:hover {
-    background: var(--gold-hover);
-    color: var(--white);
+    filter: brightness(108%);
+    transform: translateY(-1px);
+}
+.product-card {
+    border-left: 4px solid #d4b44c;
+    background: white;
 }
 
-/* ===== FOOTER ===== */
-.admin-footer {
-    background: var(--admin-dark);
-    color: var(--gold-text);
-    text-align: center;
-    font-size: 0.9rem;
-    padding: 10px;
-    width: 100%;
-    position: relative;
+.section-header .section-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #001326;
+}
+.form-label {
+    color: #001326;
+}
+.form-control, .form-select {
+    border-radius: 10px;
+    border: 1px solid rgba(212,180,76,0.4);
+}
+.form-control:focus, .form-select:focus {
+    border-color: #d4b44c;
+    box-shadow: 0 0 6px rgba(212,180,76,0.5);
 }
 
-/* ===== Responsive tối giản (giữ layout y như laptop) ===== */
-@media (max-width: 992px) {
-    .sidebar {
-        width: 220px;
-    }
-    .content {
-        margin-left: 220px;
-        padding: 1.5rem;
-    }
+.form-check-input {
+    width: 48px;
+    height: 22px;
+    cursor: pointer;
+}
+.form-check-input:checked {
+    background-color: #d4b44c;
+    border-color: #d4b44c;
+}
+.table-responsive {
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    border-radius: 18px !important;
 }
 
-@media (max-width: 768px) {
-    .sidebar {
-        width: 200px;
-        height: 100vh;
-        position: fixed;
-    }
-    .sidebar a {
-        font-size: 14px;
-        padding: 0.6rem 1rem;
-    }
-    .content {
-        margin-left: 200px;
-        padding: 1.25rem;
-    }
+thead.bg-dark {
+    background: linear-gradient(90deg,#001326,#002543);
+    color: #f7d778 !important;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+tbody tr:hover {
+    background: rgba(255, 215, 0, 0.08);
+    transition: 0.2s;
+}
+
+.btn-outline-danger {
+    border-color: #ff6b6b !important;
+    color: #ff6b6b !important;
+}
+.btn-outline-danger:hover {
+    background: #ff6b6b !important;
+    color: white !important;
+}
+canvas {
+    max-height: 300px !important;
 }

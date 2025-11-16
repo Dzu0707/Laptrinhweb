@@ -88,24 +88,32 @@
                     <td>
                         <div class="d-flex justify-content-center gap-2">
 
+                            {{-- Sửa --}}
                             <button type="button" 
                                     class="btn btn-icon btn-edit" 
                                     title="Chỉnh sửa">
                                 <i class="bi bi-pencil-square"></i>
                             </button>
 
+                            {{-- Lưu --}}
                             <button type="button" 
                                     class="btn btn-icon btn-save d-none" 
                                     title="Lưu">
                                 <i class="bi bi-check-lg"></i>
                             </button>
 
-                            <a href="{{ route('cart.remove', $id) }}"
-                               class="btn btn-icon"
-                               onclick="return confirm('Xóa sản phẩm này?')" 
-                               title="Xóa">
-                                <i class="bi bi-trash text-danger"></i>
-                            </a>
+                            {{-- Xóa --}}
+                            <form action="{{ route('cart.remove', $id) }}" 
+                                  method="POST" 
+                                  onsubmit="return confirm('Xóa sản phẩm này?')" 
+                                  class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-icon">
+                                    <i class="bi bi-trash text-danger"></i>
+                                </button>
+                            </form>
+
                         </div>
                     </td>
 
@@ -119,7 +127,7 @@
 
 
 {{-- ============================================================
-           KHU VỰC MÃ GIẢM GIÁ + TỔNG TIỀN (2 CỘT SONG SONG)
+   2 CỘT: MÃ GIẢM GIÁ (TRÁI) + TỔNG TIỀN (PHẢI)
 ============================================================ --}}
 <div class="row mt-4">
 
@@ -138,15 +146,16 @@
                     <button class="btn btn-sm btn-danger rounded-pill">Hủy</button>
                 </form>
             </div>
+
         @else
 
             <form action="{{ route('cart.applyCoupon') }}" method="POST"
                   class="d-flex gap-2">
                 @csrf
                 <input type="text" name="code" 
-                    class="form-control rounded-pill border-gold"
-                    placeholder="Nhập mã khuyến mãi..."
-                    style="max-width: 260px;">
+                       class="form-control rounded-pill border-gold"
+                       placeholder="Nhập mã khuyến mãi..."
+                       style="max-width: 260px;">
 
                 <button class="btn btn-gold rounded-pill fw-bold px-4">
                     <i class="bi bi-check-circle me-1"></i> Áp dụng
@@ -192,7 +201,7 @@
             </table>
 
             <a href="{{ route('checkout.show') }}" 
-                class="btn btn-gold btn-lg w-100 fw-bold rounded-pill mt-2 d-inline-flex align-items-center justify-content-center">
+               class="btn btn-gold btn-lg w-100 fw-bold rounded-pill mt-2 d-inline-flex align-items-center justify-content-center">
                 <i class="bi bi-credit-card me-2"></i>
                 Thanh toán
             </a>

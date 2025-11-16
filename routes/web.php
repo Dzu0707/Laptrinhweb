@@ -104,8 +104,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_admin'])->group(
         ->name('orders.status');
 
     // Báo cáo doanh thu
-    Route::get('/reports', [AdminReportController::class, 'index'])->name('reports.index');
-
+    Route::get('/reports', [AdminReportController::class, 'index'])
+        ->name('reports.index');
+        
     // Bài viết
     Route::resource('posts', AdminPostController::class);
 

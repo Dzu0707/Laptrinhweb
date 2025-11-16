@@ -10,11 +10,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     {{-- CSS chung --}}
-    <link rel="stylesheet" href="{{ asset('css/theme.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 </head>
-
-<body>
+<body class="admin-layout">
 
     {{-- SIDEBAR --}}
     <nav class="sidebar shadow-sm">
@@ -22,7 +20,7 @@
             <i class="bi bi-shield-lock-fill me-1"></i> Quản trị
         </div>
 
-        {{-- Về trang người dùng --}}
+        {{-- Trang người dùng --}}
         <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">
             <i class="bi bi-house-door"></i> Trang chủ (User)
         </a>
@@ -87,10 +85,9 @@
     </main>
 
     {{-- FOOTER --}}
-    <footer class="admin-footer text-center py-3">
-        <small>© {{ date('Y') }} HomeDecorStore Admin — All Rights Reserved</small>
+    <footer class="admin-footer">
+        © {{ date('Y') }} HomeDecorStore Admin — All Rights Reserved
     </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>

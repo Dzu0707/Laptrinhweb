@@ -4,26 +4,38 @@
 
 @section('content')
 <div class="container py-4" style="max-width: 700px;">
-    <h3 class="section-title mb-4">
-        <i class="bi bi-person-lines-fill me-2"></i> Chỉnh sửa người dùng
+
+    {{-- TIÊU ĐỀ --}}
+    <h3 class="section-title mb-4 d-flex align-items-center">
+        <i class="bi bi-person-lines-fill me-2"></i>
+        Chỉnh sửa người dùng
     </h3>
 
-    <div class="card shadow border-0">
-        <div class="card-body">
+    {{-- KHUNG FORM --}}
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+
             <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
+                {{-- Họ tên --}}
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Họ tên</label>
-                    <input type="text" name="name" class="form-control rounded-pill" value="{{ $user->name }}" required>
+                    <input type="text" name="name" 
+                           class="form-control rounded-pill" 
+                           value="{{ $user->name }}" required>
                 </div>
 
+                {{-- Email --}}
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Email</label>
-                    <input type="email" name="email" class="form-control rounded-pill" value="{{ $user->email }}" required>
+                    <input type="email" name="email" 
+                           class="form-control rounded-pill" 
+                           value="{{ $user->email }}" required>
                 </div>
 
+                {{-- Quyền --}}
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Quyền</label>
                     <select name="role" class="form-select rounded-pill" required>
@@ -33,21 +45,31 @@
                 </div>
 
                 <hr>
+
+                {{-- Mật khẩu mới --}}
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Mật khẩu mới (tùy chọn)</label>
-                    <input type="password" name="password" class="form-control rounded-pill" placeholder="Để trống nếu không đổi">
+                    <input type="password" name="password" 
+                           class="form-control rounded-pill" 
+                           placeholder="Để trống nếu không đổi">
                 </div>
 
-                <div class="text-center">
+                {{-- Nút --}}
+                <div class="text-center mt-4">
                     <button type="submit" class="btn btn-gold rounded-pill px-4 fw-bold">
                         <i class="bi bi-save me-1"></i> Lưu thay đổi
                     </button>
-                    <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary rounded-pill ms-2">
+
+                    <a href="{{ route('admin.users.index') }}" 
+                       class="btn btn-outline-secondary rounded-pill ms-2">
                         Quay lại
                     </a>
                 </div>
+
             </form>
+
         </div>
     </div>
+
 </div>
 @endsection
