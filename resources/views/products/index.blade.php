@@ -1,105 +1,86 @@
 @extends('layouts.app')
 
-@section('title', 'Trang Chủ & Sản Phẩm Nổi Bật')
+@section('title', 'HomeDecorStore | Nội Thất Cao Cấp')
 
 @section('content')
 
-<div id="heroCarousel"
-     class="carousel slide carousel-fade position-relative mb-5"
-     data-bs-ride="carousel"
-     data-bs-interval="10000">
+{{-- =========================
+    ✨ HERO SWIPER – LUXURY
+========================= --}}
+<div class="swiper heroSwiper mb-5">
 
-    <!-- Indicators -->
-    <div class="carousel-indicators mb-3">
-        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
-        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
-        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+    <div class="swiper-wrapper">
+
+        @php
+        $slides = [
+            ["img"=>"banner.png",  "title"=>"Nội Thất Cao Cấp - Sang Trọng Bậc Nhất", "sub"=>"Tinh tế trong từng chi tiết • Bền vững theo thời gian"],
+            ["img"=>"banner1.png", "title"=>"Không Gian Sống Đẳng Cấp",              "sub"=>"Thiết kế tinh giản – Thẩm mỹ vượt thời gian"],
+            ["img"=>"banner2.png", "title"=>"Biến Ngôi Nhà Thành Tổ Ấm",              "sub"=>"Chất liệu cao cấp – Thi công thủ công tinh xảo"],
+        ];
+        @endphp
+
+        @foreach ($slides as $s)
+        <div class="swiper-slide hero-slide">
+            <img src="{{ asset('images/'.$s['img']) }}" class="hero-img">
+            <div class="hero-overlay"></div>
+
+            <div class="hero-text">
+                <h1 class="hero-title">{{ $s['title'] }}</h1>
+                <p class="hero-sub">{{ $s['sub'] }}</p>
+
+                <a href="{{ route('products.index') }}"
+                   class="btn hero-cta btn-lg rounded-pill">
+                    <i class="bi bi-shop me-2"></i> Khám phá ngay
+                </a>
+            </div>
+        </div>
+        @endforeach
+
     </div>
 
-    <div class="carousel-inner rounded-4 shadow overflow-hidden">
+    {{-- Pagination + Arrows --}}
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev hero-nav"></div>
+    <div class="swiper-button-next hero-nav"></div>
 
-        <!-- Slide 1 -->
-        <div class="carousel-item active">
-            <div class="hero-full-wrap">
-                <img src="{{ asset('images/banner.png') }}" class="hero-full-img">
-                <div class="hero-full-overlay"></div>
-                <div class="hero-content-left container">
-                    <h1 class="hero-title">Nội Thất Cao Cấp — Kiến Tạo Không Gian Sống</h1>
-                    <p class="hero-sub">Tinh tế trong từng đường nét, bền vững theo thời gian.</p>
-                    <a href="{{ route('products.index') }}" class="btn btn-gold btn-lg rounded-pill">
-                        <i class="bi bi-shop me-2"></i> Xem Sản Phẩm
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 2 -->
-        <div class="carousel-item">
-            <div class="hero-full-wrap">
-                <img src="{{ asset('images/banner1.png') }}" class="hero-full-img">
-                <div class="hero-full-overlay"></div>
-                <div class="hero-content-left container">
-                    <h1 class="hero-title">Không Gian Sống Sang Trọng & Đẳng Cấp</h1>
-                    <p class="hero-sub">Nội thất tinh giản — thẩm mỹ vượt thời gian.</p>
-                    <a href="{{ route('products.index') }}" class="btn btn-gold btn-lg rounded-pill">
-                        <i class="bi bi-shop me-2"></i> Xem Sản Phẩm
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 3 -->
-        <div class="carousel-item">
-            <div class="hero-full-wrap">
-                <img src="{{ asset('images/banner2.png') }}" class="hero-full-img">
-                <div class="hero-full-overlay"></div>
-                <div class="hero-content-left container">
-                    <h1 class="hero-title">Biến Ngôi Nhà Thành Tổ Ấm Hoàn Hảo</h1>
-                    <p class="hero-sub">Nghệ thuật thiết kế & chất liệu cao cấp.</p>
-                    <a href="{{ route('products.index') }}" class="btn btn-gold btn-lg rounded-pill">
-                        <i class="bi bi-shop me-2"></i> Xem Sản Phẩm
-                    </a>
-                </div>
-            </div>
-        </div>
-
-    </div>
 </div>
-{{-- ===============================
-     FEATURED PRODUCTS
-================================ --}}
-<h2 class="section-title mb-4 text-center">
-    <i class="bi bi-stars me-2"></i> SẢN PHẨM NỔI BẬT
+
+{{-- =========================
+    ✨ SẢN PHẨM NỔI BẬT
+========================= --}}
+<h2 class="section-title mb-4">
+    ✨ Sản phẩm nổi bật
 </h2>
 
 <div id="featuredProductCarousel" class="carousel slide mb-5">
     <div class="carousel-inner">
 
-        @foreach ($products->chunk(4) as $chunk)
-        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-            <div class="row g-4">
+        {{-- 🟡 HIỂN THỊ 10 SẢN PHẨM 1 LẦN --}}
+        <div class="carousel-item active">
+            <div class="row g-4 justify-content-center">
 
-                @foreach ($chunk as $product)
-                <div class="col-lg-3 col-md-6">
-                    <div class="card product-card h-100 text-center border-0 shadow-sm rounded-4">
+                @foreach ($products->take(10) as $product)
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="product-card h-100 shadow-sm">
 
-                        <a href="{{ route('product.show', $product->slug) }}" class="text-decoration-none">
-                            <div class="ratio ratio-1x1 bg-light">
-                                <img src="{{ asset('storage/' . $product->thumbnail) }}"
-                                     class="w-100 h-100" style="object-fit: cover;"
+                        <a href="{{ route('product.show',$product->slug) }}">
+                            <div class="ratio ratio-1x1 overflow-hidden">
+                                <img src="{{ asset('storage/'.$product->thumbnail) }}"
+                                     class="product-thumb"
                                      alt="{{ $product->name }}">
                             </div>
                         </a>
 
-                        <div class="card-body d-flex flex-column p-3">
-                            <h6 class="fw-bold text-truncate text-gold">{{ $product->name }}</h6>
+                        <div class="p-3 text-center d-flex flex-column">
 
-                            <p class="fs-5 fw-bold text-gold my-2">
+                            <h6 class="fw-bold text-truncate">{{ $product->name }}</h6>
+
+                            <div class="price-tag my-2">
                                 {{ $product->formatted_price }}
-                            </p>
+                            </div>
 
-                            <a href="{{ route('product.show', $product->slug) }}" 
-                               class="btn btn-outline-gold btn-sm rounded-pill mt-auto">
+                            <a href="{{ route('product.show',$product->slug) }}"
+                               class="btn btn-outline-gold rounded-pill mt-auto">
                                 <i class="bi bi-search me-1"></i> Chi tiết
                             </a>
                         </div>
@@ -110,18 +91,29 @@
 
             </div>
         </div>
-        @endforeach
 
     </div>
-
-    {{-- Controls --}}
-    <button class="carousel-control-prev" type="button" data-bs-target="#featuredProductCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon bg-dark rounded-circle p-2"></span>
-    </button>
-
-    <button class="carousel-control-next" type="button" data-bs-target="#featuredProductCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon bg-dark rounded-circle p-2"></span>
-    </button>
 </div>
 
 @endsection
+
+
+@push('scripts')
+<script>
+new Swiper(".heroSwiper", {
+    loop: true,
+    speed: 1100,
+    effect: "fade",
+    fadeEffect: { crossFade: true },
+    autoplay: {
+        delay: 4200,
+        disableOnInteraction: false
+    },
+    pagination: { el: ".swiper-pagination", clickable: true },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev"
+    }
+});
+</script>
+@endpush

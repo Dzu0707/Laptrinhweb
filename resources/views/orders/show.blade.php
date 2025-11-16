@@ -1,56 +1,109 @@
 @extends('layouts.app')
 
-@section('title', 'Chi tiết đơn hàng')
+@section('title', "Đơn hàng #$order->id")
 
 @section('content')
-<div class="container py-4">
+<div class="container py-4" style="max-width: 900px;">
 
-    <a href="{{ route('orders.mine') }}" class="btn btn-outline-secondary mb-3 rounded-pill">
+    {{-- ⬅️ BACK --}}
+    <a href="{{ route('orders.mine') }}" 
+       class="btn btn-outline-gold rounded-pill fw-semibold mb-4">
         <i class="bi bi-arrow-left-circle me-1"></i> Quay lại đơn hàng
     </a>
 
-    <div class="card shadow-sm border-0 rounded-3 p-4">
-        <h4 class="fw-bold mb-3">Chi tiết đơn #{{ $order->id }}</h4>
+    {{-- 🧾 ORDER BOX --}}
+    <div class="card shadow-lg border-0 rounded-4 mb-4">
+        <div class="card-body p-4">
 
-        <p><strong>Ngày đặt:</strong> {{ $order->created_at->format('d/m/Y H:i') }}</p>
-        <p><strong>Trạng thái:</strong> {{ $order->status }}</p>
-        <p><strong>Người nhận:</strong> {{ $order->name }}</p>
-        <p><strong>Địa chỉ:</strong> {{ $order->address }}</p>
-        <p><strong>Số điện thoại:</strong> {{ $order->phone }}</p>
+            <h4 class="fw-bold text-gold mb-3 d-flex align-items-center">
+                <i class="bi bi-receipt-cutoff me-2"></i>
+                Đơn hàng #{{ $order->id }}
+            </h4>
 
-        <hr>
+            {{-- STATUS --}}
+            @php
+                $statusMap = [
+                    'pending'   => ['Chờ xử lý', 'bi-hourglass-split', '#b8902d'],
+                    'completed' => ['Hoàn tất', 'bi-check-circle-fill', '#2e8b57'],
+                    'cancelled' => ['Đã hủy', 'bi-x-circle-fill', '#c0392b'],
+                ];
+                [$label, $icon, $color] = $statusMap[$order->status];
+            @endphp
 
-        <h5 class="fw-bold mb-3">Sản phẩm</h5>
-        <table class="table table-bordered align-middle">
-            <thead class="table-light">
-                <tr>
-                    <th>Hình ảnh</th>
-                    <th>Sản phẩm</th>
-                    <th>Số lượng</th>
-                    <th>Giá</th>
-                    <th>Thành tiền</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($order->items as $item)
-                <tr>
-                    <td width="80">
-                        <img src="{{ asset('storage/' . $item->product->thumbnail) }}" 
-                        class="img-fluid rounded" 
-                        alt="{{ $item->product->name }}">
-                    </td>
-                    <td>{{ $item->product->name }}</td>
-                    <td class="text-center">{{ $item->quantity }}</td>
-                    <td>{{ number_format($item->price) }}₫</td>
-                    <td class="text-danger fw-bold">{{ number_format($item->price * $item->quantity) }}₫</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+            <span class="order-status-badge"
+                  style="background:{{ $color }}20; color:{{ $color }}; border:1px solid {{ $color }};">
+                <i class="bi {{ $icon }} me-1"></i>{{ $label }}
+            </span>
 
-        <div class="text-end fs-5 fw-bold text-danger mt-3">
-            Tổng tiền: {{ number_format($order->total) }}₫
+            <p class="text-muted mt-2">
+                <i class="bi bi-calendar-event me-1"></i>
+                {{ $order->created_at->format('d/m/Y H:i') }}
+            </p>
+
+            <hr>
+
+            <div class="row small">
+                <div class="col-md-6">
+                    <p class="mb-1"><b><i class="bi bi-person-fill me-1"></i> Người nhận:</b> {{ $order->name }}</p>
+                    <p class="mb-1"><b><i class="bi bi-telephone-fill me-1"></i> Số điện thoại:</b> {{ $order->phone }}</p>
+                </div>
+
+                <div class="col-md-6">
+                    <p class="mb-1"><b><i class="bi bi-geo-alt-fill me-1"></i> Địa chỉ:</b></p>
+                    <p class="text-muted">{{ $order->address }}</p>
+                </div>
+            </div>
         </div>
     </div>
+    
+    {{-- 🛍 PRODUCTS --}}
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body p-4">
+
+            <h5 class="fw-bold text-gold mb-3">
+                <i class="bi bi-bag-check me-2"></i> Sản phẩm đã mua
+            </h5>
+
+            <table class="table align-middle">
+                <thead class="bg-light">
+                    <tr>
+                        <th width="90">Ảnh</th>
+                        <th>Sản phẩm</th>
+                        <th class="text-center">SL</th>
+                        <th>Giá</th>
+                        <th class="text-end">Thành tiền</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach ($order->items as $item)
+                        @php $sum = $item->price * $item->quantity; @endphp
+
+                        <tr>
+                            <td>
+                                <img src="{{ asset('storage/'.$item->product->thumbnail) }}"
+                                     class="rounded shadow-sm"
+                                     style="width:70px;height:70px;object-fit:cover;">
+                            </td>
+
+                            <td class="fw-semibold">{{ $item->product->name }}</td>
+
+                            <td class="text-center">{{ $item->quantity }}</td>
+
+                            <td>{{ number_format($item->price) }}₫</td>
+
+                            <td class="text-end fw-bold text-gold">{{ number_format($sum) }}₫</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            <div class="text-end mt-3 fs-4 fw-bold text-gold">
+                Tổng thanh toán: {{ number_format($order->total) }}₫
+            </div>
+
+        </div>
+    </div>
+
 </div>
 @endsection
